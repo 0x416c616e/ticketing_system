@@ -1,0 +1,157 @@
+Table creation commands:
+
+CREATE TABLE Employee(
+    employeeID INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    firstName VARCHAR(15) NOT NULL,
+    lastName VARCHAR(15) NOT NULL,
+    phoneNumber VARCHAR(12) NOT NULL UNIQUE,
+    emailAddress VARCHAR(30) NOT NULL UNIQUE,
+    officeLocation INT NOT NULL UNIQUE,
+    currentlyHired BOOLEAN NOT NULL
+);
+
+CREATE TABLE StandardProcedure(
+    procedureID INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(30) NOT NULL,
+    instructions VARCHAR(1000) NOT NULL
+);
+
+CREATE TABLE Technician(
+    technicianID INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    firstName VARCHAR(15) NOT NULL,
+    lastName VARCHAR(15) NOT NULL,
+    phoneNumber VARCHAR(12) NOT NULL UNIQUE,
+    emailAddress VARCHAR(30) NOT NULL UNIQUE,
+    officeLocation INT NOT NULL UNIQUE,
+    currentlyHired BOOLEAN NOT NULL,
+    isAdmin BOOLEAN NOT NULL,
+    specialty VARCHAR(30),
+    experienceLevel TINYINT NOT NULL,
+    password VARCHAR(32) NOT NULL
+);
+
+CREATE TABLE Ticket(
+    ticketID INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    dateCreated DATETIME NOT NULL,
+    title VARCHAR(50) NOT NULL,
+    description VARCHAR(1000) NOT NULL,
+    difficulty TINYINT NOT NULL,
+    openStatus BOOLEAN NOT NULL,
+    solutionSummary VARCHAR(1000),
+    assignedEmployeeID INT NOT NULL,
+    assignedTechnicianID INT,
+    assignedProcedureID INT,
+    FOREIGN KEY (assignedEmployeeID) REFERENCES Employee(employeeID),
+    FOREIGN KEY (assignedTechnicianID) REFERENCES Technician(technicianID),
+    FOREIGN KEY (assignedProcedureID) REFERENCES StandardProcedure(procedureID)
+);
+
+
+Putting fake data into the database, just as an example (these aren't real accounts or whatever):
+These are not real people, real passwords, or real accounts. Just made up so that you can interact with the program.
+Feel free to use different fake data.
+
+INSERT INTO Employee
+(employeeID, firstName, lastName, phoneNumber, emailAddress, officeLocation, currentlyHired)
+VALUES
+(1, "Deleted", "Deleted", "000-000-0000", "deleted@deleted.deleted", "0000", 0),
+(2, "Maria", "Torres", "312-806-6400", "mtorres85@gmail.com", 2067, 1),
+(3, "Matt", "Williams", "312-561-7284", "matt1252@chicagofinance.com", 3140, 1),
+(4, "Lauren", "Bennett", "312-239-8642", "lauren@chicagofinance.com", 1011, 1),
+(5, "Robert", "Cook", "312-675-9030", "bearsfan312@chicagofinance.com", 2051, 1),
+(6, "Kim", "O&quot;Neill", "773-127-6271", "chicagorobert@outlook.com", 4002, 1),
+(7, "Steven", "Weber", "312-808-3049", "stevenweber@gmail.com", 2080, 1),
+(8, "Susan", "Jones", "312-641-9874", "susan64@chicagofinance.com", 4018, 1),
+(9, "Carl", "Morgan", "630-095-1227", "carlm1986@yahoo.com", 5101, 0),
+(10, "Sophia", "Anderson", "872-184-6851", "sophia99@protonmail.com", 6027, 1),
+(11, "Dmitri", "Ivanov", "847-360-9352", "dmitrichicago@comcast.net", 3006, 1),
+(12, "Alex", "Murphy", "630-164-8532", "am653@gmail.com", 1105, 1);
+
+INSERT INTO Technician
+(technicianID, firstName, lastName, phoneNumber, emailAddress, officeLocation, currentlyHired, isAdmin, specialty, experienceLevel, password)
+VALUES
+(1, "Deleted", "Deleted", "000-000-0000", "deleted@deleted.deleted", "0000", 
+0, 0, "Deleted", 0, "Deleted"),
+(2, "Dale", "Kowalski", "312-558-6233", "dale721@gmail.com", 3001, 1, 0, NULL, 1, "asdf456"),
+(3, "Jenny", "Nguyen", "872-209-9552", "jenny@chicagofinance.com", 3002, 1, 0, "Linux", 2, "whatever674"),
+(4, "Dovydas", "Kairys", "773-724-2234", "techguy33@chicagofinance.com", 3009, 1, 0, "Active Directory", 2, "HelloWorld123"),
+(5, "Alice", "Smith", "708-875-8362", "musicfan@outlook.com", 3015, 1, 0, "Printing", 1, "music1989"),
+(6, "Greg", "Jackson", "312-103-9608", "gregiscool@protonmail.com", 3109, 1, 1, "Networking", 3, "chicago_is_cool!!"),
+(7, "Margaret", "Wilson", "312-427-9373", "mwilson@gmail.com", 3005, 0, 0, NULL, 2, "hereismypasswordiguess"),
+(8, "Carlos", "Martinez", "312-125-8653", "cm1978@comcast.net", 1012, 1, 0, "Windows", 2, "asd456DFdr234#@"),
+(9, "Christina", "Miller", "773-925-7243", "ctech@chicagofinance.com", 1013, 1, 1, "Mobile", 3, "newOne2020"),
+(10, "John", "Lee", "312-628-7599", "jlsecurity@gmail.com", 1015, 1, 0, "Security", 3, "business1967"),
+(11, "Andrew", "Klein", "312-204-6215", "andrew@chicagofinance.com", 1016, 1, 0, "SMB", 2, "something67854"),
+(12, "Greg", "Jackson", "773-556-8529", "gjackson@chicagofinance.com", 1050, 1, 0, NULL, 1, "i_am_new_here742"),
+(13, "Bob", "O&quot;Malley", "630-507-3348", "omalley@chicagofinance.com", 1051, 1, 0, NULL, 2, "mypasswordhere");
+
+INSERT INTO StandardProcedure
+(procedureID, name, instructions)
+VALUES
+(1, "Deleted Procedure", "Nothing here"),
+(2, "Malware removal", "Turn the computer off. Plug in Acronis flash drive. Reboot but make sure to change boot order to boot from USB. Restore workstation to most recent Win10 Optiplex image from the SMB share. Wait. Reset employee&quot;s password. Notify security staff."),
+(3, "Connect to wifi", "Make sure airplane mode is off. Make sure wifi is enabled. Click wifi icon. Select corporate2.4. Enter in current password from password manager."),
+(4, "Employee requests new software", "Write down name of software. Look into price and licensing. Discuss with IT staff if it&quot;s worth getting/using. Run by security staff so they can make sure it&quot;s safe to use."),
+(5, "Can&quot;t print to printer", "Make sure computer has network connectivity at all. Make sure print drivers are installed. Make sure network printer is turned on, and has enough toner and paper. Make sure printer is not jammed. Try printing a test print job. Make sure correct printer is selected."),
+(6, "AD password reset", "For novice technicians, just look up other technicians in the database and find someone whose specialty is Active Directory."),
+(7, "Loud/overheating PC", "Take employee&quot;s PC, unplug it, and go back to IT department. Use compressed air can to blow out any dust. Clean fans. Make sure fans are plugged into motherboard. Boot it up but with side panel off. See if fans can spin. Monitor CPU usage and see if there are any programs using a lot of resources. If it&quot;s still too hot, take off the heatsink, clean off old thermal paste, and apply new thermal compound, then put heatsink back on. If issue is with the fans, not the CPU usage, consider replacing them with new fans."),
+(8, "Can&quot;t access file server", "Make sure computer has network connectivity. Check if other people can access the file server. See if the workstation has a network-mapped drive set up. Make sure there isn&quot;t an issue with the user&quot;s SMB credentials. "),
+(9, "Peripherals don&quot;t work", "Make sure device is plugged into computer. Try using it. If mouse or keyboard doesn&quot;t work, try them on another computer. Issue could be dead port or dead peripherals. If port is dead, plug it into a different USB port. If the device itself is dead, "),
+(10, "PC won&quot;t boot", "Make sure computer is plugged in and power supply is switched on at the back. Make sure outlet isn&quot;t dead. If it's plugged into a surge protector or power strip, try using a different one if it doesn&quot;t work. Press power button. If that doesn&quot;t work, make sure front panel connectors are plugged in. Try reseating the RAM sticks. What you should do depends on if the PC can at least POST. There are differences between OS problems and hardware problems for booting."),
+(11, "No video output", "Make sure monitor is turned on. Make sure PC is plugged in and turned on. Make sure video cable goes from the graphics card to the monitor. Make sure the proper source is used for the monitor, such as DVI or HDMI. Try a different port, such as VGA if you're using HDMI, or vice versa. Make sure computer can boot. Make sure monitor isn't dead by testing it with a different computer. Try replacing the graphics card with a spare one, as GPUs die sometimes. "),
+(12, "Windows blue screen", "Ask employee what they were doing when the blue screen/crash happened. See what the error message is, because not all blue screens have the same cause. Google the error message. Take instructions from a reputable site. Sometimes, blue screens are caused by hardware failure. Sometimes they are caused by driver issues. Sometimes it&quot;s because of high resource usage. Sometimes a new update causes issues, or sometimes a computer needs a new update. Run memtest86+.");
+
+INSERT INTO Ticket
+(ticketID, dateCreated, title, description, difficulty, openStatus,
+solutionSummary, assignedTechnicianID, assignedEmployeeID, assignedProcedureID)
+VALUES
+(1, '2018-10-05 09:53:01', "Forgot password", "Employee can&quot;t remember their password and needs it to be reset.", 1, 0, "Reset their password in Active Directory.", 4, 2, 6),
+(2, '2019-01-05 12:35:15', "New conferencing software", "Employee wants to use new video conferencing software so remote employees can join meetings.", 2, 1, NULL, 9, 4, 4),
+(3, '2019-04-18 16:03:56', "Not sure if this email is legit", "Employee reported suspicious email that looks like it&quot;s a scammer pretending to be an employee.", 1, 0, "Went to employee&quot;s cubicle and looked at email. They were right to be cautious as it was a phishing email. Deleted it and updated the email spam filter.", 10, 3, NULL),
+(4, '2019-08-20 10:47:39', "Unable to print", "Employee tried to print, but nothing happened.", 1, 0, "Employee had the wrong printer selected and was sending print jobs to the old/defunct printer.", 5, 6, 5),
+(5, '2019-10-02 13:57:18', "PC stuck updating", "Employee&quot;s workstation downloaded Windows 10 updates, but it&quot;s been updating for hours now and it&quot;s still stuck at 95% complete.", 2, 0, "Turned PC off. Tried rebooting, but it didn&quot;t boot. Simply reimaged the workstation with Acronis.", 8, 7, NULL),
+(6, '2019-12-22 11:20:47', "Slow wifi in certain areas", "Employee reports wifi being slow and unreliable but only in certain areas. Maybe we need to add new wireless access points for better coverage.", 3, 1, NULL, 6, 9, 3),
+(7, '2020-01-04 17:08:51', "Software is too out of date", "Employee complained that their computer&quot;s software is very old and it&quot;s causing compatibility issues. Needs to be updated. Maybe update the Optiplex image and reimage.", 1, 1, NULL, 8, 10, NULL),
+(8, '2020-01-13 09:01:55', "Dropped laptop and it broke", "Employee was taking their laptop to a meeting and dropped it. Now, most of the screen doesn&quot;t work.", 2, 0, "Ordered new laptop screen and installed it.", 2, 8, NULL),
+(9, '2020-02-07 14:26:10', "Accidentally deleted important folder", "Employee was working on an important spreadsheet but accidentally deleted it and can&quot;t recover it. Should recover from a previous ZFS snapshot on the SMB share. ", 2, 1, NULL, 11, 2, NULL),
+(10, '2020-02-07 15:00:54', "Employee requests training", "Employee expressed interest in being trained to learn more about the tech they use for their job, such as Excel and email. Maybe we can organize a workshop or something.", 3, 1, NULL, 7, 7, NULL),
+(11, '2020-02-09 11:51:02', "Security software blocks important website", "Employee was working on an important project but the security software accidentally blocked a website they need to access to finish their work. Do they really need it or do they just think it&quot;s a legitimate website? They want it to be unblocked but it needs to be investigated first.", 2, 1, NULL, 3, 11, NULL),
+(12, '2020-03-06 16:12:56', "Developer requests server for new project", "Employee is working on a new fintech project for the company, but they need the IT department to set up a server for them. Must be approved before anything can be deployed though.", 3, 1, NULL, 6, 12, NULL),
+(13, '2020-03-18 12:23:49', "Disk quota for file server", "Employee has been using a lot of disk space on the file server. They think it&quot;s out of space, but in reality, it&quot;s just that each employee has a certain disk quota. Maybe we can increase their quota, or maybe we shouldn&quot;t make exceptions. Plenty of free space on the server though.", 3, 1, NULL, 11, 4, NULL),
+(14, '2020-04-01 10:06:32', "Corporate website looks out of date", "Employee who works in sales called and said a client they were calling mentioned the company website looking outdated. We should update the Wordpress theme to look more modern.", 3, 1, NULL, NULL, 9, NULL),
+(15, '2020-04-07 9:51:06', "SSL certificate warning on company website", "Remote employee went to web login page and their browser gave them an SSL warning. They thought maybe the site got hacked, but it seems likely that the certificate just expired and we need to update it. Someone should investigate and make sure it&quot;s only an expiration issue and nothing else.", 3, 1, NULL, NULL, 9, NULL),
+(16, '2020-04-10 13:00:47', "Meeting room projector", "Employee is having trouble with using the projector in the meeting room.", 1, 1, NULL, NULL, 5, NULL),
+(17, '2020-04-12 16:45:17', "Unknown computer issues", "Employee is frustrated with computer issues but unable to explain it well over the phone. Technician will need to go to their office to investigate.", 3, 1, NULL, NULL, 4, NULL),
+(18, '2020-04-15 9:30:21', "Loud computer fan", "Employee mentions desktop&quot;s fan(s) being very loud and distracting.", 2, 1, NULL, NULL, 8, 7),
+(19, '2020-04-15 12:06:01', "VoIP phone doesn&quot;t work", "Employee&quot;s Cisco VoIP phone can&quot;t make or receive calls even though it&quot;s plugged in.", 2, 1, NULL, 2, 7, NULL);
+
+
+
+
+
+
+
+View creation commands:
+
+CREATE VIEW AllOpenTickets
+    AS SELECT ticketID, dateCreated, title, difficulty, assignedTechnicianID
+    FROM Ticket
+    WHERE openStatus = 1
+    ORDER BY dateCreated ASC;
+
+CREATE VIEW AllTickets
+    AS SELECT ticketID, dateCreated, title, difficulty, assignedTechnicianID
+    FROM Ticket
+    ORDER BY dateCreated ASC;
+
+CREATE VIEW TicketTextSearch
+    AS SELECT ticketID, dateCreated, title, difficulty, assignedTechnicianID, description, openStatus
+    FROM Ticket
+    ORDER BY dateCreated ASC;
+
+CREATE VIEW ListOfProcedures
+    AS SELECT procedureID, name
+    FROM StandardProcedure
+    ORDER BY procedureID ASC;
+
+
