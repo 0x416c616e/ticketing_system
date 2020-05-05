@@ -49,7 +49,7 @@ CREATE TABLE Ticket(
 
 Putting fake data into the database, just as an example (these aren't real accounts or whatever):
 These are not real people, real passwords, or real accounts. Just made up so that you can interact with the program.
-Feel free to use different fake data.
+Feel free to use different fake data. The only stuff you absolutely need are the "deleted" placeholders for ID 1 for the Employee, StandardProcedure, and Technician tables.
 
 INSERT INTO Employee
 (employeeID, firstName, lastName, phoneNumber, emailAddress, officeLocation, currentlyHired)
