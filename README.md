@@ -16,9 +16,9 @@ SQL commands are located in sql_commands.txt.
 2. Run the table population commands in phpMyAdmin or the mysql> prompt.
 3. Run the view creation commands in phpMyAdmin or the mysql> prompt.
 4. Compile Main.java, Technician.java, and MenuPrinter.java.
-5. Tou will need to change the configuration for the database, user, and password to connect. See the ìCredentials.txt and the initial setupî section in this document for more info. But itís easiest if you just leave it the way it currently is.
+5. You will need to change the configuration for the database, user, and password to connect. See the ‚ÄúCredentials.txt and the initial setup‚Äù section in this document for more info. But it‚Äôs easiest if you just leave it the way it currently is.
 6. Run Main.java in jGRASP
-7. Log in with a technicianID and password from the data in the table population commands. If an accountís currentlyHired value is 0, it will not be allowed to log in, because that means the employee was fired and their account is disabled.
+7. Log in with a technicianID and password from the data in the table population commands. If an account‚Äôs currentlyHired value is 0, it will not be allowed to log in, because that means the employee was fired and their account is disabled.
 
 ## Terminology and overview
 
@@ -30,7 +30,7 @@ SQL commands are located in sql_commands.txt.
 
 **Technician:** someone who can provide support to non-IT employees.
 
-**Regular technician:** a technician with limited privileges. They can only edit their own stuff, and canít make or delete employees, technicians, or standard procedures. They can make new tickets, edit or delete their own tickets, and edit some of their own information. Some of their own info, like admin status or hired status, cannot be edited. That can only be changed by an admin.
+**Regular technician:** a technician with limited privileges. They can only edit their own stuff, and can‚Äôt make or delete employees, technicians, or standard procedures. They can make new tickets, edit or delete their own tickets, and edit some of their own information. Some of their own info, like admin status or hired status, cannot be edited. That can only be changed by an admin.
 
 **Administrator:** a technician who has the ability to do anything in the ticketing system. No limits on making/editing/viewing/deleting things.
 
@@ -44,14 +44,14 @@ SQL commands are located in sql_commands.txt.
 
 **Closed ticket:** a finished tech support request.
 
-**Deleted:** in a ticketing system, you donít usually delete closed stuff. But itís an option in this program anyway. Finished tickets are still important for historical purposes though.
+**Deleted:** in a ticketing system, you don‚Äôt usually delete closed stuff. But it‚Äôs an option in this program anyway. Finished tickets are still important for historical purposes though.
 
 **Deleted account vs. fired account:** this IT ticketing system allows for disabling employee and technician accounts without deleting them. A fired employee is unable to make support requests and a fired technician or admin is unable to log in. Because of how often the program checks stuff, if a technician is logged in and then gets fired, they will get logged out the next time they go back to the main menu.
 
-**ìDeletedî placeholders:** a ticket will have 1 to 3 things associated with it: employee who requested it (mandatory), technician responsible for finishing the ticket (optional), and a standard procedure (optional). If something gets deleted, but they are still referenced in a ticket (as foreign keys), it gets swapped out for a placeholder ID instead. 
+**‚ÄúDeleted‚Äù placeholders:** a ticket will have 1 to 3 things associated with it: employee who requested it (mandatory), technician responsible for finishing the ticket (optional), and a standard procedure (optional). If something gets deleted, but they are still referenced in a ticket (as foreign keys), it gets swapped out for a placeholder ID instead. 
 Employee ID 1 is reserved for deleted employees. Technician ID 1 is reserved for deleted technicians. Standard procedure ID 1 is reserved for deleted procedures. If a ticket is associated with an employee whose account gets deleted, its assignedEmployeeID will be set to 1, which indicates that the employee associated with the ticket is deleted.
 
-**Credentials.txt and the initial setup:** credentials.txt is a file that stores the database name, username, and password to connect to the server. If the credentials havenít been set up, the program will prompt the user to input this information. A blank file called finished_setup.txt is basically a boolean. It means the programís setup has been completed and it no longer needs to ask the user for credentials for connecting to the server. 
+**Credentials.txt and the initial setup:** credentials.txt is a file that stores the database name, username, and password to connect to the server. If the credentials haven‚Äôt been set up, the program will prompt the user to input this information. A blank file called finished_setup.txt is basically a boolean. It means the program‚Äôs setup has been completed and it no longer needs to ask the user for credentials for connecting to the server. 
 
 The database name, username, and password will be stored in the credentials.txt file after an initial setup has been completed. If you want to reset the program, then delete the finished_setup.txt file and then clear the contents of credentials.txt. The next time you run the program, it will ask you to fill out the connection information.
 
@@ -67,12 +67,12 @@ The database name, username, and password will be stored in the credentials.txt 
 
 **Main.java:** main method as well as some methods relating to different menu options.
 
-**Technician.java:** the logged in technicianís information gets retrieved from the database and put into a Technician object. It gets refreshed every now and then with Technician.updateAll();
+**Technician.java:** the logged in technician‚Äôs information gets retrieved from the database and put into a Technician object. It gets refreshed every now and then with Technician.updateAll();
 
-**MenuPrinter.java:** in order to de-clutter the Main class, I put some menu methods in the MenuPrinter class. Itís mostly just print statements with lists of menu options.
+**MenuPrinter.java:** in order to de-clutter the Main class, I put some menu methods in the MenuPrinter class. It‚Äôs mostly just print statements with lists of menu options.
 
 **4 tables:** Employee, Technician, StandardProcedure, and Ticket.
 
-**General lists vs. detailed individual info:** when you want to view many records at the same time, it only shows certain fields, because it canít fit everything on a single line. If you want to view detailed info about something, you will have to use the menu option to view it individually, based on ID. Viewing something individually will show all the fields, not just some of them.
+**General lists vs. detailed individual info:** when you want to view many records at the same time, it only shows certain fields, because it can‚Äôt fit everything on a single line. If you want to view detailed info about something, you will have to use the menu option to view it individually, based on ID. Viewing something individually will show all the fields, not just some of them.
 
 **Time limitations:** I made lots of features for the regular technician menu, but ran out of time towards the end. I finished the project, but the admin menu options are a little more minimal than the regular technician ones. But admins can still create, read, update, and delete any of the 4 entities in the system (tickets, employees, technicians, and procedures).
